@@ -34,9 +34,9 @@ Entities, Actors, and User Requirements
 
 ## Organization Account Management
 
-### Administrator
+### System Administrator
 
-An Administrator is the owner of the ticketing system (the root user). An administrator manages adding and removing Organizations from the system, as well as assigning the Organizations a user who will be the Owner.
+A System Administrator is the owner of the ticketing system (the root user). An System Administrator manages adding and removing Organizations from the system, as well as assigning the Organizations a user who will be the Owner.
 
 ### Organization
 
@@ -44,21 +44,41 @@ Organizations are the business entity that operates the events and ticket sales.
 
 ### Organization Owner
 
-Every Organization has a single user who is designated as the Owner of the organization. This user has the highest level of access within that organization. An organization owner is responsible for adding and managing the Organization members.
+Every Organization has a single user who is designated as the Owner of the organization. This user has the highest level of access within that organization. An organization owner is responsible for adding and managing the Organization members and has the role of `Organization Admin`
 
 ### Organization Member
 
 Organization Members are invited by Organization Owners to help manage the business activities of that Organization. Each Organization Member will be assigned an access level that will determine what activities they are allowed to perform on behalf of that Organization.
 
+#### Organization Member Roles
+
+All Organization Members are given a specific role.
+Organization Members can have access to either all, or a limitted subset of events within that organization.
+
+ - `Organization Admin`
+ Permission to create & edit Event Details. Abiliy to view Will Call lists, Transaction Detail lists, Event Audit Reports, Event Summary Reports, Box Office Summary, Box Office Detail Reports, Weekly Settlement reports and Ticket Counts. Ability to do refunds and create Comps. Ability to add any level of user.
+ - `Organization User`
+ Permission to create & edit Event Details. Abiliy to view Will Call lists, Transaction Detail lists, Event Audit Reports, Event Summary Reports, Box Office Summary, Box Office Detail Reports, Weekly Settlement reports and Ticket Counts. Ability to do refunds and create Comps.
+ - `Box Office Supervisor`
+ Permission to view Event Details, Will Call lists, Transaction Detail lists, Event Audit Reports, Event Summary Reports, Box Office Summary, Box Office Detail Reports, Weekly Settlement reports and Ticket Counts. Ability to do refunds.
+ - `Box Office Seller`
+ Permission to view Event Details, Will Call lists, Box Office Summary, and Ticket Counts.
+ - `Read Only User`
+ Permission to view Event Details, Will Call lists, and Event Audit Reports.
+ - `Box Office Service Only`
+ Permission to Box Office Service.
+
 ### URS
 
- - An administrator should be able to create a new organization
- - An administrator should be able to assign a user as an organizations owner
- - An administrator should be able to add venues to an organization so that the organization can create events at that venue
- - An organization owner should be able to invite users to their organization as organization members
- - An organization owner should be able to remove organization members from their organization
- - An organization owner should be able to update their organizations details
- - An organization owner should be able to assign a role to organization members
+ - A system administrator should be able to create a new organization
+ - A system administrator should be able to assign a user as an organizations owner
+ - A system administrator should be able to add venues to an organization so that the organization can create events at that venue
+ - An `Organization Admin` should be able to invite users to their organization as organization members
+ - An `Organization Admin` should be able to remove organization members from their organization
+ - An `Organization Admin` should be able to update their organizations details
+ - An `Organization Admin` should be able to assign a role to organization members
+ - An `Organization Admin` should be able to edit other organization members
+ - An `Organization Admin` should be able to manage organization members rights to access all events (default) or a limitted subset of events
 
 ## User Account Creation and Authentication
 
@@ -72,7 +92,7 @@ A Visitor is a person who interacts with the system without being logged into an
 
 ### URS
 
- - An Administrator should be able to configure which login options will be available for users
+ - An System Administrator should be able to configure which login options will be available for users
  - A Visitor should be login using a mobile phone number
  - A Visitor should be create an account using a mobile phone number
  - A Visitor should be able to create an account with their email address and a password
@@ -114,14 +134,14 @@ Each Event can have multiple Ticket Allocations (or ticket "types"). Each Ticket
 
 ### URS
 
- - A manager of an organization should be able to create a new event
- - A manager of an organization should be able to create Ticket Allocations for an event
- - A manager of an organization should be able to update the on sale status of an event
- - A manager of an organization should be able to put tickets on hold for an event
- - A manager of an organization should be able to update ticket allocations for an event
- - A manager of an organization should be able to search for an event
- - A manager of an organization should be able to see a list of all events
- - A manager of an organization should be able to update event details
+ - An `Organization Admin` and `Organization User` should be able to create a new event
+ - An `Organization Admin` and `Organization User` should be able to create Ticket Allocations for an event
+ - An `Organization Admin` and `Organization User` should be able to update the on sale status of an event
+ - An `Organization Admin` and `Organization User` to put tickets on hold for an event
+ - An `Organization Admin` and `Organization User` to update ticket allocations for an event
+ - An `Organization Admin` and `Organization User` should be able to update event details
+ - An organization member should be able to search for an event
+ - An organization member should be able to see a list of all events
 
 ## Event Search/Discovery
 
@@ -178,9 +198,9 @@ A user will arrive at the event and should be able to gain access to have their 
 
  - A User should be able to have their ticket scanned to gain entry to an event
  - A User should be able to share that they are checking into an event with other users
- - An Organization manager should be able to look up a users ticket ID to check a User into an event
- - An Organization manager should be able to look up a users name to check a User into an event
- - An Organization manager should be able to scan a ticket to check a User into an event
+ - An Organization member should be able to look up a users ticket ID to check a User into an event
+ - An Organization member should be able to look up a users name to check a User into an event
+ - An Organization member should be able to scan a ticket to check a User into an event
 
 ## Venue Box Office
 
@@ -189,6 +209,17 @@ A Venue should be able to manage and sell tickets at the venue box office.
 ### URS
 
  - An organization member should be able to sell a ticket to an event
+
+## Event Reporting
+
+An Organization member should be able to view reports based on their permissions
+
+### Reports
+ - Event Audit Reports
+ - Event Summary Reports
+ - Box Office Summary
+ - Box Office Detail Reports
+ - Weekly Settlement reports
 
 ## Activity Feed
 
@@ -207,8 +238,8 @@ An Organization should be able to engage with Users who are attending their even
 
 ### URS
 
- - An Organization member should be able to trigger a push notification to let event attendees know that it is last call at the bar
- - An Organization member should be able to schedule a push notification to let event attendees know that it is last call at the bar
+ - An `Organization Admin` and `Organization User` should be able to trigger a push notification to let event attendees know that it is last call at the bar
+ - An `Organization Admin` and `Organization User` should be able to schedule a push notification to let event attendees know that it is last call at the bar
  
 ## Analytics
 
@@ -216,16 +247,13 @@ An Organization may have their own analytics service that they want traffic data
 
 ### URS
 
- - An Organization Member should be able to integrate with their Google Analytics account to capture basic event page traffic statistics
+ - An `Organization Admin` and `Organization User` should be able to integrate with their Google Analytics account to capture basic event page traffic statistics
 
 ## Marketing
 
 ### URS
 
- - An Organization Member should be able to integrate with their Mailchimp email list where customer information will be sent to
- - An Organization Member should be able to integrate with their SendGrid email list where customer information will be sent to
- - An Organization Member should be able to list events on their website hosted outside of the platform
+ - An `Organization Admin` and `Organization User` should be able to integrate with their Mailchimp email list where customer information will be sent to
+ - An `Organization Admin` and `Organization User` should be able to integrate with their SendGrid email list where customer information will be sent to
+ - An Organization should be able to list events on their website hosted outside of the platform
  
- 
-
-
