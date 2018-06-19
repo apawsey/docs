@@ -104,9 +104,11 @@ A Visitor is a person who interacts with the system without being logged into an
 
 ## Event Mangement
 
-### Event
 
-Events are created by a member of an organization. Each event might have the following attributes:
+
+Events are created by a member of an organization. An events tickets may be sold on an external service, but still listed on the bigNEON platforms--events with an `isExternal` designation will require an external URL that the "Buy" buttons on the bigNEON platform will direct them to. 
+
+Each event might have the following attributes:
  - Title
  - Headlining Artist
  - Additional Artist(s)
@@ -116,12 +118,27 @@ Events are created by a member of an organization. Each event might have the fol
  - Venue
  - Start Date/Time
  - End Date/Time
- - Ticketing Status (ie "On Sale", "Sold Out", "Closed", "Ended")
+ - isExternal
+ - External URL (if `isExternal`==`true`)
+ - Ticketing Status (ie `On Sale`, `Sold Out`, `Closed`, `Ended`)
  - Ticket Allocation(s)
 
-### Ticket Allocation
+### URS
 
-Each Event can have multiple Ticket Allocations (or ticket "types"). Each Ticket allocation might have the following attributes:
+ - An `Organization Admin` and `Organization User` should be able to create a new event
+ - An `Organization Admin` and `Organization User` should be able to update event details
+ - An `Organization Admin` and `Organization User` should be able to update the on sale status of an event
+ - An organization member should be able to search for an event
+ - An organization member should be able to see a list of all events
+
+
+## Inventory Management
+
+Each Event can have multiple Ticket Allocations (or ticket "types"). 
+
+### Ticket Allocations
+
+Each Ticket allocation might have the following attributes:
  - Name (ie. "General Admission", "VIP", "GA Early Bird")
  - Description
  - Quantity Available
@@ -134,14 +151,9 @@ Each Event can have multiple Ticket Allocations (or ticket "types"). Each Ticket
 
 ### URS
 
- - An `Organization Admin` and `Organization User` should be able to create a new event
  - An `Organization Admin` and `Organization User` should be able to create Ticket Allocations for an event
- - An `Organization Admin` and `Organization User` should be able to update the on sale status of an event
  - An `Organization Admin` and `Organization User` to put tickets on hold for an event
  - An `Organization Admin` and `Organization User` to update ticket allocations for an event
- - An `Organization Admin` and `Organization User` should be able to update event details
- - An organization member should be able to search for an event
- - An organization member should be able to see a list of all events
 
 ## Event Search/Discovery
 
@@ -208,7 +220,7 @@ A Venue should be able to manage and sell tickets at the venue box office.
 
 ### URS
 
- - An organization member should be able to sell a ticket to an event
+ - An organization member should be able to sell a ticket to an event at the venue using their own payment system or cash
 
 ## Event Reporting
 
